@@ -123,8 +123,23 @@
   <data name="AppName" xml:space="preserve">
     <value>CityZen</value>
   </data>
+  <data name="btnClearPh" xml:space="preserve">
+    <value>Delete photo</value>
+  </data>
+  <data name="btnDone" xml:space="preserve">
+    <value>DONE!</value>
+  </data>
+  <data name="btnTakePh" xml:space="preserve">
+    <value>Take photo</value>
+  </data>
   <data name="FlagCity" xml:space="preserve">
     <value>City</value>
+  </data>
+  <data name="FlagDone" xml:space="preserve">
+    <value>Submit!</value>
+  </data>
+  <data name="FlagPhoto" xml:space="preserve">
+    <value>Show the problem</value>
   </data>
   <data name="FlagPosMap" xml:space="preserve">
     <value>You are here</value>
@@ -141,6 +156,12 @@
   <data name="FlagWhere" xml:space="preserve">
     <value>Where are you?</value>
   </data>
+  <data name="lblCat" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="lblDesc" xml:space="preserve">
+    <value>Description:</value>
+  </data>
   <data name="MapLoadText" xml:space="preserve">
     <value>Finding your position...</value>
   </data>
@@ -149,6 +170,12 @@
   </data>
   <data name="MsgBxErrTitle" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="rdArch" xml:space="preserve">
+    <value>Architechtural barriers</value>
+  </data>
+  <data name="rdInc" xml:space="preserve">
+    <value>Vandalism and incivilty</value>
   </data>
   <data name="TileSignal" xml:space="preserve">
     <value>Notify</value>

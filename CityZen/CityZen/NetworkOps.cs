@@ -15,14 +15,17 @@ using System.Device.Location;
 
 namespace CityZen
 {
-    public class NetworkOperation
+    public class OpenStreetMapsParser
     {
         WebClient wc;
+        TextBox city, road;
 
-        public NetworkOperation()
+        public OpenStreetMapsParser(TextBox _ct, TextBox _rd)
         {
             wc = new WebClient();
             wc.DownloadStringCompleted += new DownloadStringCompletedEventHandler(wc_DownloadStringCompleted);
+            city = _ct;
+            road = _rd;
         }
 
         public void GetStreetName(GeoCoordinate gc)
@@ -33,6 +36,9 @@ namespace CityZen
         void wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             AddressClass cc =  JsonConvert.DeserializeObject<AddressClass>(e.Result);
+            city.Tag = cc.address["country"];
+            city.Text = cc.address["city"];
+            road.Text = cc.address["road"];
         }
 
     }

@@ -79,11 +79,56 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete photo.
+        /// </summary>
+        public static string btnClearPh {
+            get {
+                return ResourceManager.GetString("btnClearPh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DONE!.
+        /// </summary>
+        public static string btnDone {
+            get {
+                return ResourceManager.GetString("btnDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take photo.
+        /// </summary>
+        public static string btnTakePh {
+            get {
+                return ResourceManager.GetString("btnTakePh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string FlagCity {
             get {
                 return ResourceManager.GetString("FlagCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit!.
+        /// </summary>
+        public static string FlagDone {
+            get {
+                return ResourceManager.GetString("FlagDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the problem.
+        /// </summary>
+        public static string FlagPhoto {
+            get {
+                return ResourceManager.GetString("FlagPhoto", resourceCulture);
             }
         }
         
@@ -133,6 +178,24 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category:.
+        /// </summary>
+        public static string lblCat {
+            get {
+                return ResourceManager.GetString("lblCat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        public static string lblDesc {
+            get {
+                return ResourceManager.GetString("lblDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finding your position....
         /// </summary>
         public static string MapLoadText {
@@ -156,6 +219,24 @@ namespace CityZen.Languages {
         public static string MsgBxErrTitle {
             get {
                 return ResourceManager.GetString("MsgBxErrTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Architechtural barriers.
+        /// </summary>
+        public static string rdArch {
+            get {
+                return ResourceManager.GetString("rdArch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vandalism and incivilty.
+        /// </summary>
+        public static string rdInc {
+            get {
+                return ResourceManager.GetString("rdInc", resourceCulture);
             }
         }
         
