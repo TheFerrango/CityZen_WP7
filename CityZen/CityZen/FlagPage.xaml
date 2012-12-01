@@ -69,9 +69,9 @@
             <controls:PanoramaItem Header="{Binding Path=LocStrings.FlagPhoto, Source={StaticResource LocStrings}}">
                 <Grid>
                     <StackPanel>
-                        <Button Content="{Binding Path=LocStrings.btnTakePh, Source={StaticResource LocStrings}}"/>
-                        <Image Source="/CityZen;component/Images/blék.png" Height="250" />
-                        <Button Content="{Binding Path=LocStrings.btnClearPh, Source={StaticResource LocStrings}}"/>
+                        <Button x:Name="btnTakePh" Click="btnTakePh_Click" Content="{Binding Path=LocStrings.btnTakePh, Source={StaticResource LocStrings}}"/>
+                        <Image x:Name="imgBox" Source="/CityZen;component/Images/blék.png" Height="250"  />
+                        <Button x:Name="btnDelPh" Click="btnDelPh_Click" Content="{Binding Path=LocStrings.btnClearPh, Source={StaticResource LocStrings}}"/>
 
                     </StackPanel>
                 </Grid>

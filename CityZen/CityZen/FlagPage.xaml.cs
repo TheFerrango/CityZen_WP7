@@ -12,23 +12,41 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Device.Location;
 using Microsoft.Phone.Controls.Maps;
+using Microsoft.Phone.Tasks;
+using Microsoft.Phone;
+using System.Windows.Media.Imaging;
 
 namespace CityZen
 {
     public partial class FlagPage : PhoneApplicationPage
     {
-        GeoCoordinateWatcher gcw;
-        string category;
+        #region Constructor & variables
 
+        PhotoChooserTask cct;
+        GeoCoordinateWatcher gcw;
+        WriteableBitmap wrbmp;
         public FlagPage()
         {
             InitializeComponent();
-            category = "";
+            
+            //Camera
+            cct = new PhotoChooserTask();
+            cct.ShowCamera = true;
+            cct.PixelHeight = 480;
+            cct.PixelWidth = 640;
+            cct.Completed += new EventHandler<PhotoResult>(cct_Completed);
+
+            //GPS
             gcw = new GeoCoordinateWatcher();
             gcw.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(gcw_StatusChanged);            
             gcw.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(gcw_PositionChanged);
             gcw.Start();            
         }
+
+
+        #endregion
+
+        #region GPS Data management
 
         void gcw_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
@@ -54,10 +72,7 @@ namespace CityZen
             }   
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            remChars.Text = string.Format("{0}/{1}", txtbxDesc.Text.Length, txtbxDesc.MaxLength);
-        }
+        #endregion
 
         #region CheckBeforeSend
 
@@ -100,15 +115,59 @@ namespace CityZen
 
         #endregion
 
-              private void btnSubmit_Click(object sender, RoutedEventArgs e)
-        {
-            string bigPimp = string.Format("{0}, {1}, {2}, {3}: {4}", txtCity.Tag.ToString(), txtCity.Text, txtRoad.Text, ((ListPickerItem)listPick.SelectedItem).Content.ToString(), txtbxDesc.Text);
-            MessageBox.Show(bigPimp);
-        }
+        #region UI magic things
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            remChars.Text = string.Format("{0}/{1}", txtbxDesc.Text.Length, txtbxDesc.MaxLength);
+        }
+        
         private void Panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BigCheck();
+        }
+
+        #endregion
+
+        #region Camera management code
+
+        void cct_Completed(object sender, PhotoResult e)
+        {
+            if (e.TaskResult == TaskResult.OK)
+            {
+                wrbmp = PictureDecoder.DecodeJpeg(e.ChosenPhoto, 640, 480);
+                imgBox.Source = wrbmp;
+            }
+        }
+
+        private void btnTakePh_Click(object sender, RoutedEventArgs e)
+        {
+            cct.Show();
+        }
+
+        private void btnDelPh_Click(object sender, RoutedEventArgs e)
+        {
+            wrbmp = null;
+        }
+
+        #endregion
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            //string bigPimp = string.Format("{0}, {1}, {2}, {3}: {4}", txtCity.Tag.ToString(), txtCity.Text, txtRoad.Text, ((ListPickerItem)listPick.SelectedItem).Content.ToString(), txtbxDesc.Text);
+            DataStructure toSend = new DataStructure()
+            {
+                category = ((ListPickerItem)listPick.SelectedItem).Content.ToString(),
+                country = txtCity.Tag.ToString(),
+                city = txtCity.Text,
+                address = txtRoad.Text,
+                description = txtbxDesc.Text,
+                image = wrbmp
+            };
+
+            string c = Newtonsoft.Json.JsonConvert.SerializeObject(toSend);
+            NetworkCoop nc = new NetworkCoop();
+            nc.sendData("data="+c);
         }
     }
 }
