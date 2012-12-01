@@ -7,6 +7,7 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <local:LocalStrings xmlns:local="clr-namespace:CityZen" x:Key="LocStrings" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
