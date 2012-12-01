@@ -20,5 +20,10 @@ namespace CityZen
         {
             InitializeComponent();
         }
+
+        private void tileSubmit_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/FlagPage.xaml", UriKind.Relative));
+        }
     }
 }
