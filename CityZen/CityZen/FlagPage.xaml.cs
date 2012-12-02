@@ -88,25 +88,20 @@ namespace CityZen
             return txtbxDesc.Text != "";
         }
 
-        bool CheckCheck()
-        {
-            //return category != "";
-            return true;
-        }
 
-        void BigCheck()
+        bool BigCheck()
         {
             btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             if (CheckCity() && CheckRoad())
             {
-                btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
-
-                if (CheckCheck() && CheckDesc()) 
+                if (CheckDesc()) 
                 {
                     btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+                    return true;
                 } 
 
-            }       
+            }
+            return false;
          
         }
 
@@ -158,20 +153,27 @@ namespace CityZen
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             //string bigPimp = string.Format("{0}, {1}, {2}, {3}: {4}", txtCity.Tag.ToString(), txtCity.Text, txtRoad.Text, ((ListPickerItem)listPick.SelectedItem).Content.ToString(), txtbxDesc.Text);
-            DataStructure toSend = new DataStructure()
+            if (BigCheck())
             {
-                category = ((ListPickerItem)listPick.SelectedItem).Content.ToString(),
-                country = txtCity.Tag.ToString(),
-                city = txtCity.Text,
-                address = txtRoad.Text,
-                description = txtbxDesc.Text,
-                image = Convert.ToBase64String(photoToSerial)
-            };
+                DataStructure toSend = new DataStructure()
+                {
+                    category = ((ListPickerItem)listPick.SelectedItem).Content.ToString(),
+                    country = txtCity.Tag.ToString(),
+                    city = txtCity.Text,
+                    address = txtRoad.Text,
+                    description = txtbxDesc.Text,
+                    image = Convert.ToBase64String(photoToSerial)
+                };
 
-            string c = Newtonsoft.Json.JsonConvert.SerializeObject(toSend);
-            NetworkCoop nc = new NetworkCoop();
-            nc.sendData("data="+c);
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                string c = Newtonsoft.Json.JsonConvert.SerializeObject(toSend);
+                NetworkCoop nc = new NetworkCoop();
+                nc.sendData("data=" + c);
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                MessageBox.Show(Languages.AppResources.MsgBxErrVal, Languages.AppResources.MsgBxErrTitle, MessageBoxButton.OK);
+            }
         }
     }
 }

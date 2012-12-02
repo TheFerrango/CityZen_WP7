@@ -250,6 +250,15 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid data, please check that both description and loncation are not empty.
+        /// </summary>
+        public static string MsgBxErrVal {
+            get {
+                return ResourceManager.GetString("MsgBxErrVal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Architechtural barriers.
         /// </summary>
         public static string rdArch {
