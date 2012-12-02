@@ -52,12 +52,12 @@
                     <StackPanel>
                         <TextBlock Text="{Binding Path=LocStrings.lblCat, Source={StaticResource LocStrings}}"></TextBlock>
                         <toolkit:ListPicker x:Name="listPick">
-                            <toolkit:ListPickerItem Content="{Binding Path=LocStrings.rdArch, Source={StaticResource LocStrings}}"></toolkit:ListPickerItem>
-                            <toolkit:ListPickerItem Content="{Binding Path=LocStrings.rdInc, Source={StaticResource LocStrings}}"></toolkit:ListPickerItem>
-
+                            <toolkit:ListPicker.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Value}"></TextBlock>
+                                </DataTemplate>
+                            </toolkit:ListPicker.ItemTemplate>
                         </toolkit:ListPicker>
-                        <!--<RadioButton GroupName="category" Checked="RadioButton_Checked" Content="{Binding Path=LocStrings.rdArch, Source={StaticResource LocStrings}}"></RadioButton>
-                        <RadioButton GroupName="category" Checked="RadioButton_Checked" Content="{Binding Path=LocStrings.rdInc, Source={StaticResource LocStrings}}"></RadioButton>-->
                         <TextBlock Text="{Binding Path=LocStrings.lblDesc, Source={StaticResource LocStrings}}"></TextBlock>
                     <TextBox x:Name="txtbxDesc" MaxLength="300" Height="200" TextChanged="TextBox_TextChanged"></TextBox>
                         <TextBlock x:Name="remChars" HorizontalAlignment="Right" Text="0/300"></TextBlock>

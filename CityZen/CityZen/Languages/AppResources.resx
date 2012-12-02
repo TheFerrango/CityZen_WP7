@@ -192,4 +192,7 @@
   <data name="MsgBxErrVal" xml:space="preserve">
     <value>Invalid data, please check that both description and loncation are not empty</value>
   </data>
+  <data name="MsgBxErrNoNet" xml:space="preserve">
+    <value>No network connection found. Enable data connection and try again.</value>
+  </data>
 </root>

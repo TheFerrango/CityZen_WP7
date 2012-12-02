@@ -26,6 +26,10 @@ namespace CityZen
             InitializeComponent();
             photoToSerial = new byte[0];
 
+            //ListPicker
+            listPick.ItemsSource = Staticona.Dizione;
+            
+
             //Camera
             cct = new PhotoChooserTask();
             cct.ShowCamera = true;
@@ -157,7 +161,7 @@ namespace CityZen
             {
                 DataStructure toSend = new DataStructure()
                 {
-                    category = ((ListPickerItem)listPick.SelectedItem).Content.ToString(),
+                    category = ((KeyValuePair<int, string>)listPick.SelectedItem).Key.ToString(),
                     country = txtCity.Tag.ToString(),
                     city = txtCity.Text,
                     address = txtRoad.Text,

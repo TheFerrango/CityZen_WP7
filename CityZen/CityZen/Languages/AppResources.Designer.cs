@@ -241,6 +241,15 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No network connection found. Enable data connection and try again..
+        /// </summary>
+        public static string MsgBxErrNoNet {
+            get {
+                return ResourceManager.GetString("MsgBxErrNoNet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string MsgBxErrTitle {

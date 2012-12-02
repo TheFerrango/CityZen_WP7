@@ -97,6 +97,7 @@
     <Compile Include="Network.cs" />
     <Compile Include="OpenStreetMapsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Staticona.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
