@@ -180,4 +180,13 @@
   <data name="TileSignal" xml:space="preserve">
     <value>Notify</value>
   </data>
+  <data name="MsgBxErrGen" xml:space="preserve">
+    <value>Hmm, something went wrong. Try again later.</value>
+  </data>
+  <data name="MsgBxAllGBody" xml:space="preserve">
+    <value>Operation successful.</value>
+  </data>
+  <data name="MsgBxAllGTitle" xml:space="preserve">
+    <value>Success!</value>
+  </data>
 </root>

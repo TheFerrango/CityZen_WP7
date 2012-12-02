@@ -1,21 +1,9 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging;
-
+﻿
 namespace CityZen
 {
     public class DataStructure
     {
-        string _country, _city, _address, _category, _description;
-        WriteableBitmap _image;
+        string _country, _city, _address, _category, _description, _image;
 
         public string country
         {
@@ -47,7 +35,7 @@ namespace CityZen
             set { _description = value; }
         }
 
-        public WriteableBitmap image
+        public string image
         {
             get { return _image; }
             set { _image = value; }

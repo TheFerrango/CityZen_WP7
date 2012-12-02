@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Device.Location;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
+using Microsoft.Phone;
 using Microsoft.Phone.Controls;
-using System.Device.Location;
 using Microsoft.Phone.Controls.Maps;
 using Microsoft.Phone.Tasks;
-using Microsoft.Phone;
-using System.Windows.Media.Imaging;
 
 namespace CityZen
 {
@@ -25,10 +19,12 @@ namespace CityZen
         PhotoChooserTask cct;
         GeoCoordinateWatcher gcw;
         WriteableBitmap wrbmp;
+        byte[] photoToSerial;
+
         public FlagPage()
         {
             InitializeComponent();
-            
+
             //Camera
             cct = new PhotoChooserTask();
             cct.ShowCamera = true;
@@ -115,7 +111,7 @@ namespace CityZen
 
         #endregion
 
-        #region UI magic things
+        #region UI magic
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -136,6 +132,11 @@ namespace CityZen
             if (e.TaskResult == TaskResult.OK)
             {
                 wrbmp = PictureDecoder.DecodeJpeg(e.ChosenPhoto, 640, 480);
+                e.ChosenPhoto.Position = 0;
+                List<byte> lb = new List<byte>();
+                while(e.ChosenPhoto.Position < e.ChosenPhoto.Length)
+                    lb.Add((byte)e.ChosenPhoto.ReadByte());
+                photoToSerial = lb.ToArray();
                 imgBox.Source = wrbmp;
             }
         }
@@ -148,6 +149,7 @@ namespace CityZen
         private void btnDelPh_Click(object sender, RoutedEventArgs e)
         {
             wrbmp = null;
+            photoToSerial = new byte[0];
         }
 
         #endregion
@@ -162,12 +164,13 @@ namespace CityZen
                 city = txtCity.Text,
                 address = txtRoad.Text,
                 description = txtbxDesc.Text,
-                image = wrbmp
+                image = Convert.ToBase64String(photoToSerial)
             };
 
             string c = Newtonsoft.Json.JsonConvert.SerializeObject(toSend);
             NetworkCoop nc = new NetworkCoop();
             nc.sendData("data="+c);
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
     }
 }

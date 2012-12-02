@@ -205,11 +205,38 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation successful..
+        /// </summary>
+        public static string MsgBxAllGBody {
+            get {
+                return ResourceManager.GetString("MsgBxAllGBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success!.
+        /// </summary>
+        public static string MsgBxAllGTitle {
+            get {
+                return ResourceManager.GetString("MsgBxAllGTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Positioning system is not enabled. Please enable it and retry.
         /// </summary>
         public static string MsgBxErrBody {
             get {
                 return ResourceManager.GetString("MsgBxErrBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hmm, something went wrong. Try again later..
+        /// </summary>
+        public static string MsgBxErrGen {
+            get {
+                return ResourceManager.GetString("MsgBxErrGen", resourceCulture);
             }
         }
         

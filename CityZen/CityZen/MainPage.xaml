@@ -12,7 +12,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -33,12 +33,15 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 GroupTag="0"
+                Source="Images/submit.png"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Title="{Binding Path=LocStrings.TileSignal, Source={StaticResource LocStrings}}"
                 Name="tileSubmit"
-                Tap="tileSubmit_Tap"
-                />
+                Tap="tileSubmit_Tap"/>
+                
+            
+                
         </Grid>
     </Grid>
  
