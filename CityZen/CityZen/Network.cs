@@ -45,7 +45,7 @@ namespace CityZen
             netOperation = true;
             
 
-            wc.UploadStringAsync(new Uri("http://192.168.1.10:8000/api/"), bah);
+            wc.UploadStringAsync(new Uri("http://192.168.28.184:8000/api/"), bah);
             
         }
     }
