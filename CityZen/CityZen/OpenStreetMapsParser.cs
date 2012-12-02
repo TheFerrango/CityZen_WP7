@@ -3,6 +3,7 @@ using System.Device.Location;
 using System.Net;
 using System.Windows.Controls;
 using Newtonsoft.Json;
+using System.Windows;
 
 namespace CityZen
 {
@@ -26,10 +27,19 @@ namespace CityZen
 
         void wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            AddressClass cc =  JsonConvert.DeserializeObject<AddressClass>(e.Result);
-            city.Tag = cc.address["country"];
-            city.Text = cc.address["city"];
-            road.Text = cc.address["road"];
+            if (e.Error == null)
+            {
+                try
+                {
+                    AddressClass cc = JsonConvert.DeserializeObject<AddressClass>(e.Result);
+                    city.Tag = cc.address["country"];
+                    city.Text = cc.address["city"];
+                    road.Text = cc.address["road"];
+                }
+                catch
+                {
+                }
+            }
         }
 
     }
