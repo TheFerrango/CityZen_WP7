@@ -8,7 +8,9 @@ namespace CityZen
 {
     public class NetworkCoop
     {
-        string SERVER_ADDRESS = "http://192.168.29.196:8000/";
+        //string SERVER_ADDRESS = "http://192.168.29.196:8000/";
+        string SERVER_ADDRESS = "http://192.168.28.184:8000/";
+        string SERVER_ADDRESS = "http://10.23.4.184:8000/";
 
         WebClient wc;
         bool netOperation;
