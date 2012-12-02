@@ -136,7 +136,7 @@
     <value>City</value>
   </data>
   <data name="FlagDone" xml:space="preserve">
-    <value>Submit!</value>
+    <value>Go and notify!</value>
   </data>
   <data name="FlagPhoto" xml:space="preserve">
     <value>Show the problem</value>
@@ -193,6 +193,9 @@
     <value>Invalid data, please check that both description and loncation are not empty</value>
   </data>
   <data name="MsgBxErrNoNet" xml:space="preserve">
-    <value>No network connection found. Enable data connection and try again.</value>
+    <value>No network connection found. Enable data connection and restart the app.</value>
+  </data>
+  <data name="MsgBxErrNetOp" xml:space="preserve">
+    <value>Network operation already in progress, please wait.</value>
   </data>
 </root>

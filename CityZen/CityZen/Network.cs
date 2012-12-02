@@ -3,6 +3,8 @@ using System.Net;
 using Newtonsoft.Json;
 using Coding4Fun.Phone.Controls;
 using System.Collections.Generic;
+using Microsoft.Phone.Controls;
+
 
 namespace CityZen
 {
@@ -10,9 +12,16 @@ namespace CityZen
     {
         //string SERVER_ADDRESS = "http://192.168.29.196:8000/";
         string SERVER_ADDRESS = "http://192.168.28.184:8000/";
-        string SERVER_ADDRESS = "http://10.23.4.184:8000/";
+        //string SERVER_ADDRESS = "http://10.23.4.184:8000/";
 
         WebClient wc;
+
+        public WebClient Wc
+        {
+            get { return wc; }
+            set { wc = value; }
+        }
+
         bool netOperation;
 
         public bool NetOperation
@@ -69,19 +78,28 @@ namespace CityZen
             netOperation = false;
         }
 
-        public void sendData(string bah)
+        public bool sendData(string bah)
         {
-            netOperation = true;
-            
-
-            wc.UploadStringAsync(new Uri(SERVER_ADDRESS + "api/"), bah);
-            
+            if (!netOperation)
+            {
+                netOperation = true;
+                wc.UploadStringAsync(new Uri(SERVER_ADDRESS + "api/"), bah);
+            }
+            else
+                return false;
+            return true;
         }
 
-        public void retrieveCategories()
+        public bool retrieveCategories()
         {
-            netOperation = true;
-            wc.DownloadStringAsync(new Uri(SERVER_ADDRESS + "api/categories/"));
+            if (!netOperation)
+            {
+                netOperation = true;
+                wc.DownloadStringAsync(new Uri(SERVER_ADDRESS + "api/categories/"));
+            }
+            else
+                return false;
+            return true;
         }
     }
 }

@@ -16,9 +16,11 @@
     shell:SystemTray.IsVisible="False">
     
     <!--LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Loaded="LayoutRoot_Loaded">
         <controls:Panorama Title="{Binding Path=LocStrings.FlagTitle, Source={StaticResource LocStrings}}" FontSize="20" SelectionChanged="Panorama_SelectionChanged">
-
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="/CityZen;component/Images/NY_800.jpg" Stretch="Fill" />
+            </controls:Panorama.Background>
             <!--Panorama item one-->
             <controls:PanoramaItem Header="{Binding Path=LocStrings.FlagWhere, Source={StaticResource LocStrings}}">
                 <Grid>
@@ -59,7 +61,7 @@
                             </toolkit:ListPicker.ItemTemplate>
                         </toolkit:ListPicker>
                         <TextBlock Text="{Binding Path=LocStrings.lblDesc, Source={StaticResource LocStrings}}"></TextBlock>
-                    <TextBox x:Name="txtbxDesc" MaxLength="300" Height="200" TextChanged="TextBox_TextChanged"></TextBox>
+                    <TextBox x:Name="txtbxDesc" MaxLength="300" Height="200" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="TextBox_TextChanged"></TextBox>
                         <TextBlock x:Name="remChars" HorizontalAlignment="Right" Text="0/300"></TextBlock>
                     </StackPanel>
                 </Grid>
@@ -71,8 +73,8 @@
                     <StackPanel>
                         <Button x:Name="btnTakePh" Click="btnTakePh_Click" Content="{Binding Path=LocStrings.btnTakePh, Source={StaticResource LocStrings}}"/>
                         <Image x:Name="imgBox" Height="250"  />
-                        <Button x:Name="btnDelPh" Click="btnDelPh_Click" Content="{Binding Path=LocStrings.btnClearPh, Source={StaticResource LocStrings}}"/>
-
+                        <Button x:Name="btnDelPh" Visibility="Collapsed" Click="btnDelPh_Click" Content="{Binding Path=LocStrings.btnClearPh, Source={StaticResource LocStrings}}"/>
+                        
                     </StackPanel>
                 </Grid>
             </controls:PanoramaItem>
@@ -81,7 +83,7 @@
             <controls:PanoramaItem Header="{Binding Path=LocStrings.FlagDone, Source={StaticResource LocStrings}}">
                 <Grid>
                     <StackPanel>
-                        <Button Content="FLAG!" x:Name="btnSubmit" Click="btnSubmit_Click" Height="300" BorderBrush="Green"></Button>
+                        <Button Margin="20,20,20,20" Background="LightGray" Opacity="0.6" BorderThickness="4" Foreground="Red" Content="Submit!" x:Name="btnSubmit" Click="btnSubmit_Click" FontSize="40" Height="150" BorderBrush="Red"></Button>
                     </StackPanel>
                 </Grid>
             </controls:PanoramaItem>
