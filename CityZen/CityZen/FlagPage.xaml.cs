@@ -17,18 +17,21 @@ namespace CityZen
         #region Constructor & variables
 
         PhotoChooserTask cct;
+        NetworkCoop nc;
         GeoCoordinateWatcher gcw;
-        WriteableBitmap wrbmp;
         byte[] photoToSerial;
+        bool hasNetwork;
 
         public FlagPage()
         {
             InitializeComponent();
+            hasNetwork = Microsoft.Phone.Net.NetworkInformation.DeviceNetworkInformation.IsNetworkAvailable;
             photoToSerial = new byte[0];
+            //Network Manager
+            nc = new NetworkCoop();
+            //nc.Wc.DownloadStringCompleted += new System.Net.DownloadStringCompletedEventHandler(Wc_DownloadStringCompleted);
 
-            //ListPicker
-            listPick.ItemsSource = Staticona.Dizione;
-            
+           
 
             //Camera
             cct = new PhotoChooserTask();
@@ -39,9 +42,15 @@ namespace CityZen
 
             //GPS
             gcw = new GeoCoordinateWatcher();
-            gcw.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(gcw_StatusChanged);            
+            gcw.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(gcw_StatusChanged);
             gcw.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(gcw_PositionChanged);
-            gcw.Start();            
+            gcw.Start();
+        }
+
+        void Wc_DownloadStringCompleted(object sender, System.Net.DownloadStringCompletedEventArgs e)
+        {
+            //ListPicker
+            listPick.ItemsSource = Staticona.Dizione;
         }
 
 
@@ -52,7 +61,7 @@ namespace CityZen
         void gcw_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
             mapLayer.Items.Clear();
-            mapLayer.Items.Add(new Pushpin() { Location = e.Position.Location, Content= Languages.AppResources.FlagPosMap });
+            mapLayer.Items.Add(new Pushpin() { Location = e.Position.Location, Content = Languages.AppResources.FlagPosMap });
             mapBox.SetView(e.Position.Location, 14);
             (new OpenStreetMapsParser(txtCity, txtRoad)).GetStreetName(e.Position.Location);
 
@@ -60,17 +69,17 @@ namespace CityZen
 
         void gcw_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
-            switch(e.Status)
+            switch (e.Status)
             {
                 case GeoPositionStatus.Ready:
                     status.Visibility = System.Windows.Visibility.Collapsed;
                     mapBox.Visibility = System.Windows.Visibility.Visible;
-                    
+
                     break;
                 case GeoPositionStatus.Disabled:
                     MessageBox.Show(Languages.AppResources.MsgBxErrTitle, Languages.AppResources.MsgBxErrBody, MessageBoxButton.OK);
                     break;
-            }   
+            }
         }
 
         #endregion
@@ -96,17 +105,19 @@ namespace CityZen
         bool BigCheck()
         {
             btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+            btnSubmit.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             if (CheckCity() && CheckRoad())
             {
-                if (CheckDesc()) 
+                if (CheckDesc())
                 {
-                    btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+                    btnSubmit.BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 100, 0));
+                    btnSubmit.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 100, 0));
                     return true;
-                } 
+                }
 
             }
             return false;
-         
+
         }
 
         #endregion
@@ -117,10 +128,31 @@ namespace CityZen
         {
             remChars.Text = string.Format("{0}/{1}", txtbxDesc.Text.Length, txtbxDesc.MaxLength);
         }
-        
+
         private void Panorama_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            mapBox.Focus();
             BigCheck();
+        }
+
+        private void LayoutRoot_Loaded(object sender, RoutedEventArgs e)
+        {
+            while (NavigationService.CanGoBack)
+                NavigationService.RemoveBackEntry();
+
+            if (Staticona.Dizione == null)
+            {
+                if (hasNetwork)
+                {
+                    //nc.retrieveCategories();
+                    Staticona.Riempilo();
+                    listPick.ItemsSource = Staticona.Dizione;
+                }
+                else
+                    MessageBox.Show(Languages.AppResources.MsgBxErrNoNet, Languages.AppResources.MsgBxErrTitle, MessageBoxButton.OK);
+            }
+            else
+                listPick.ItemsSource = Staticona.Dizione;
         }
 
         #endregion
@@ -131,13 +163,13 @@ namespace CityZen
         {
             if (e.TaskResult == TaskResult.OK)
             {
-                wrbmp = PictureDecoder.DecodeJpeg(e.ChosenPhoto, 640, 480);
+                imgBox.Source = PictureDecoder.DecodeJpeg(e.ChosenPhoto, 640, 480);
                 e.ChosenPhoto.Position = 0;
                 List<byte> lb = new List<byte>();
-                while(e.ChosenPhoto.Position < e.ChosenPhoto.Length)
+                while (e.ChosenPhoto.Position < e.ChosenPhoto.Length)
                     lb.Add((byte)e.ChosenPhoto.ReadByte());
                 photoToSerial = lb.ToArray();
-                imgBox.Source = wrbmp;
+                btnDelPh.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -148,8 +180,10 @@ namespace CityZen
 
         private void btnDelPh_Click(object sender, RoutedEventArgs e)
         {
-            wrbmp = null;
+            imgBox.Source = null;
             photoToSerial = new byte[0];
+
+            btnDelPh.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         #endregion
@@ -170,9 +204,8 @@ namespace CityZen
                 };
 
                 string c = Newtonsoft.Json.JsonConvert.SerializeObject(toSend);
-                NetworkCoop nc = new NetworkCoop();
                 nc.sendData("data=" + c);
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/FlagPage.xaml?c=" + DateTime.Now.Millisecond, UriKind.Relative));
             }
             else
             {

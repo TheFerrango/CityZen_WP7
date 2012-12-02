@@ -115,7 +115,7 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit!.
+        ///   Looks up a localized string similar to Go and notify!.
         /// </summary>
         public static string FlagDone {
             get {
@@ -241,7 +241,16 @@ namespace CityZen.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No network connection found. Enable data connection and try again..
+        ///   Looks up a localized string similar to Network operation already in progress, please wait..
+        /// </summary>
+        public static string MsgBxErrNetOp {
+            get {
+                return ResourceManager.GetString("MsgBxErrNetOp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No network connection found. Enable data connection and restart the app..
         /// </summary>
         public static string MsgBxErrNoNet {
             get {
