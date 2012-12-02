@@ -91,9 +91,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="LocalStrings.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Network.cs" />
     <Compile Include="OpenStreetMapsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,10 +102,6 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="FlagPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,7 +118,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\submit.png" />
     <Resource Include="Images\NY_800.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
