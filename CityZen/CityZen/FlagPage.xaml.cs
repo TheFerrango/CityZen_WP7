@@ -24,6 +24,7 @@ namespace CityZen
         public FlagPage()
         {
             InitializeComponent();
+            photoToSerial = new byte[0];
 
             //Camera
             cct = new PhotoChooserTask();

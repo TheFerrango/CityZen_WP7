@@ -11,6 +11,8 @@ namespace CityZen
             get { return _fuck; }
             set { _fuck = value; }
         }
+
+      
 /*
         public string road
         {
